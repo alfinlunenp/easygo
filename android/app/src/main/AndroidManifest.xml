@@ -1,0 +1,121 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Security permissions from first file -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA"/> 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!-- Optional permission for background location access on Android 10 and above -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_DOCUMENTS"/>
+
+    <application
+        android:label="Easy Go"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:enableOnBackInvokedCallback="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme" />
+
+            <!-- Launcher intent -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- ✅ Deeplink for payment return -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="easygo" android:host="payment_return" />
+            </intent-filter>
+
+            <!-- ✅ HTTP/HTTPS support for web launch -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+            
+            <!-- ✅ Optional: Specific domain filter (if you want to handle specific domains) -->
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" 
+                      android:host="yourdomain.com" 
+                      android:pathPrefix="/app" />
+                <data android:scheme="http" 
+                      android:host="yourdomain.com" 
+                      android:pathPrefix="/app" />
+            </intent-filter>
+            -->
+
+            <meta-data
+                android:name="flutterEmbedding"
+                android:value="2" />
+        </activity>
+        
+        <!-- ✅ Optional: Add WebView activity for better web handling -->
+        <!--
+        <activity
+            android:name="com.example.CustomWebViewActivity"
+            android:exported="false">
+        </activity>
+        -->
+    </application>
+
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+        <!-- If your app checks for SMS support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="sms" />
+        </intent>
+        <!-- If your app checks for call support -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="tel" />
+        </intent>
+
+         <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="https" />
+  </intent>
+
+   <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="http" />
+  </intent>
+        <!-- If your application checks for inAppBrowserView launch mode support -->
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries>
+</manifest>
